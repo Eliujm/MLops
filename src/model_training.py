@@ -4,7 +4,7 @@ import joblib
 import cargar_datos as cd
 import os
 import sys
-from ft_engineering import processing_pipeline
+from ft_engineering import processing_pipeline,data_cleaning
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split,cross_validate
 from sklearn.metrics import accuracy_score,precision_score,recall_score,roc_auc_score,confusion_matrix,classification_report,make_scorer,f1_score
@@ -13,6 +13,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
 from sklearn.svm import SVC
 
+CD = os.path.dirname(__file__)
+DATA_DR = os.path.dirname(CD)
+DATA_PATH = os.path.join(DATA_DR,'base_de_datos.xlsx')
 def summarize_classification(y, y_hat):
     """
     métricas básicas de clasificación
@@ -25,27 +28,21 @@ def summarize_classification(y, y_hat):
         "f1": f1_score(y, y_hat, zero_division=0),
     }
 
-def build_model(path):
+def build_model(path = DATA_PATH):
     df = cd.cargar_datos(path)
 
     #spliting the data into features and target#
 
-    X = df.drop(['Pago_atiempo','fecha_prestamo', 'tipo_credito','puntaje','cant_creditosvigentes','salario_cliente','saldo_mora_codeudor'] , axis = 1)
-    y = df['Pago_atiempo']
-
+    X,y = data_cleaning(df)
     #classifiying the featuress#
+   
 
     num_features =['capital_prestado','plazo_meses','edad_cliente','total_otros_prestamos','cuota_pactada','puntaje_datacredito','huella_consulta','saldo_mora','saldo_total','saldo_principal','creditos_sectorFinanciero','creditos_sectorCooperativo','creditos_sectorReal','promedio_ingresos_datacredito']
-    for i in num_features:
-        X[i] = X[i].apply(lambda x : x if isinstance(x,(int,float) )else np.nan)
-
 
     nom_features = ['tipo_laboral']
-    X['tipo_laboral'] = X['tipo_laboral'].apply(lambda x : x if isinstance(x,str)  else np.nan)
 
     or_features = ['tendencia_ingresos']
 
-    X['tendencia_ingresos'] = X['tendencia_ingresos'].apply(lambda x : x if isinstance(x,str)  else np.nan)
     ti_order = ['Decreciente','Estable','Creciente']
 
     # spliting into training and test#
@@ -120,10 +117,9 @@ def build_model(path):
     return Class_Report,Conf_Matrix, Auc_Report 
     
 if __name__ == "__main__":
-    file_path = sys.argv[1]   # first argument after the script name
-
-    if os.path.exists(file_path):
-        build_model(file_path)
+  
+    if os.path.exists(DATA_PATH):
+        build_model()
     else:
         print("File does not exist")
     
