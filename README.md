@@ -19,7 +19,7 @@ Modelo y resultados
 
 Se entrenaron 4 modelos pricipales :GradientBoostingClassifier,  RidgeClassifier,LinearDiscriminantAnalysis,RandomForestClassifier, se comparó las metricas AUC, learning curve y variación en el accuracy, el mejor modelo basado en esas metrias fue el RandomForestClassifier, el mejor performane es obtenido con un holdout de 30% o 70/30.
 
-Estos son los dato basados en la clase 1 para el caso de recall y precision, se llev+o acabo con una validazín cruzada.
+Estos son los dato basados en la clase 1 para el caso de recall y precision, se llevó acabo con una validación cruzada.
     RandomForesClassifier:
     AUC :0.6532
     accuracy_avg : 0.8739750000000001
