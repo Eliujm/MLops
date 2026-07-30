@@ -46,7 +46,7 @@ def build_model(path = DATA_PATH):
     ti_order = ['Decreciente','Estable','Creciente']
 
     # spliting into training and test#
-    x_train,x_test,y_train,y_test = train_test_split(X,y,test_size= 0.3, random_state= True, stratify= y)
+    x_train,x_test,y_train,y_test = train_test_split(X,y,test_size= 0.2, random_state= True, stratify= y)
     # getting the preprocessor ready with the features #
     preprocessor = processing_pipeline(num_features,nom_features,or_features,ti_order)
 
