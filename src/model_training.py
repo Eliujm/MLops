@@ -46,7 +46,7 @@ def build_model(path = DATA_PATH):
     ti_order = ['Decreciente','Estable','Creciente']
 
     # spliting into training and test#
-    x_train,x_test,y_train,y_test = train_test_split(X,y,test_size= 0.2, random_state= True, stratify= y)
+    x_train,x_test,y_train,y_test = train_test_split(X,y,test_size= 0.3, random_state= True, stratify= y)
     # getting the preprocessor ready with the features #
     preprocessor = processing_pipeline(num_features,nom_features,or_features,ti_order)
 
@@ -105,7 +105,7 @@ def build_model(path = DATA_PATH):
         scoring=scoring
     )
 
-    print("nombre del modelo: RandomForestClassifier")
+    print("nombre del modelo: RandomForestClassifier cross validation with training set")
     print("-"*30)
 
     for metric in scoring.keys():
@@ -113,6 +113,10 @@ def build_model(path = DATA_PATH):
         print(f"{metric}_std: {cv_scores['test_'+metric].std()}")
         print("-"*30)
 
+    print('metrics from the test set')
+    print(Class_Report)
+    print(Conf_Matrix)
+    print(Auc_Report)
 
     return Class_Report,Conf_Matrix, Auc_Report 
     
