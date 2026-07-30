@@ -32,7 +32,7 @@ Estos son los dato basados en la clase 1 para el caso de recall y precision, se 
     f1_score_std: 0.281530276508423
 
 
-Estos son los reportes del entrenamiento de las 2 clases con una estratificaciín 80/20:
+Estos son los reportes del entrenamiento de las 2 clases con una estratificación 80/20:
 nombre del modelo: RandomForestClassifier
 ------------------------------
 accuracy_avg: 0.9534262485481998
